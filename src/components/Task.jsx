@@ -1,13 +1,25 @@
 import React from "react";
 
-const Task = ({ task, removeTask }) => {
+const Task = ({ job: { id, task, isDone }, removeTask, doneTask }) => {
   const handleRemoveTaskBtn = () => {
-    removeTask(task);
+    removeTask(id);
+  };
+
+  const handleOnChange = () => {
+    doneTask(id);
   };
 
   return (
     <div className="mt-5 border border-zinc-500 w-full items-center px-4 py-2  flex justify-between">
-      <p className="text-sm  font-serif">{task}</p>
+      <div className=" flex items-center gap-3">
+        <input
+          type="checkbox"
+          onChange={handleOnChange}
+          checked={isDone}
+          className="size-4"
+        />
+        <p className={isDone ? "line-through" : ""}>{task}</p>
+      </div>
       <button
         onClick={handleRemoveTaskBtn}
         className="border-black border px-2 py-2 hover:bg-zinc-700 hover:text-white rounded-sm"
